@@ -4,8 +4,13 @@ class ListNode:
         self.next = None
 
 class Solution(object):
-    def create(self,nodeList):
-        self.head
+    def create(self,nodeList)->ListNode:
+        p = ListNode(0)
+        head = p
+        for i in nodeList:
+            p.next = ListNode(i)
+            p = p.next
+        return head.next
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         target = ListNode(0)
         p=target
@@ -31,4 +36,10 @@ class Solution(object):
 
         return target.next
 if __name__ == "__main__":
-    l1 = ListNode(5).next(ListNode(4))
+    ss = Solution()
+    l1 = ss.create([3,5,6])
+    l2 = ss.create([2,5,8])
+    result = ss.addTwoNumbers(l1,l2)
+    while result:
+        print((result.val))
+        result=result.next

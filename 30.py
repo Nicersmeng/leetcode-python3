@@ -1,5 +1,5 @@
 
-class Solution:
+# class Solution:
 
     # def findSubstring(self, s, words):
     #     from collections import Counter
@@ -42,43 +42,47 @@ class Solution:
     #
     #     return result
 class Solution:
-    def findSubstring(self, s: str, words: List[str]) -> List[int]:
+    def findSubstring(self, s, words):
         from collections import Counter
         if not s or not words:return []
         one_word = len(words[0])
-        word_num = len(words)
+        words_num = len(words)
         n = len(s)
-        if n < one_word:return []
-        words = Counter(words)
-        res = []
-        for i in range(0, one_word):
+        if n<one_word:return []
+        wordCounter = Counter(words)
+        result=[]
+        for i in range(one_word):
             cur_cnt = 0
-            left = i
-            right = i
             cur_Counter = Counter()
-            while right + one_word <= n:
-                w = s[right:right + one_word]
-                right += one_word
-                if w not in words:
+            # 循环one_word次，遍历所有的可能性
+            left=i
+            right=i
+            while right+one_word<=n:
+                temp_word = s[right:right+one_word]
+                right+=one_word
+                if temp_word not in words:
                     left = right
                     cur_Counter.clear()
-                    cur_cnt = 0
+                    cur_cnt=0
                 else:
-                    cur_Counter[w] += 1
-                    cur_cnt += 1
-                    while cur_Counter[w] > words[w]:
-                        left_w = s[left:left+one_word]
-                        left += one_word
-                        cur_Counter[left_w] -= 1
-                        cur_cnt -= 1
-                    if cur_cnt == word_num :
-                        res.append(left)
-        return res
+                    cur_Counter[temp_word]+=1
+                    cur_cnt+=1
+                    while cur_Counter[temp_word]>wordCounter[temp_word]:
+                        #删掉左边的
+                        left_word = s[left:left+one_word]
+                        left+=one_word
+                        cur_Counter[left_word]-=1
+                        cur_cnt-=1
+                    if cur_cnt==words_num:
+                        result.append(left)
+        return result
+
+
 
 
 if __name__ == '__main__':
-    s="wordgoodgoodgoodbestword"
-    words = ["word","good","best","good"]
+    # s="wordgoodgoodgoodbestword"
+    # words = ["word","good","best","good"]
     s = "lingmindraboofooowingdingbarrwingmonkeypoundcake"
     words = ["fooo", "barr", "wing", "ding", "wing"]
     ss = Solution()
